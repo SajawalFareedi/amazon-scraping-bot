@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+</head>
+
+<body>
+    <h2>Please Upload the "XLSX" file for Amazon USA Tool.</h1>
+        <form method='post' action='/upload' enctype="multipart/form-data">
+            <input type='file' name='fileUploaded'>
+            <input type='submit'>
+        </form>
+        <br>
+        ASIN: <input type="checkbox" id="ASIN" onchange="Check()"> UPC: <input type="checkbox" id="UPC"
+            onchange="Check()">
+        <br>
+        <h4>Please click on Submit after uploading the file and Checking the right Checkbox.</h4>
+        <h2 id="Start"></h2>
+        <script>
+            function Check() {
+                if (document.getElementById('ASIN').checked) {
+                    var link = '<a href="/AmazonScrapper?isASIN=true">Submit</a>'
+                    const Start = document.getElementById("Start");
+                    var opts = {
+                        method: 'GET',
+                        headers: {}
+                    };
+                    fetch('/Resp', opts).then(function (response) {
+                        return response.json();
+                    }).then(function (body) {
+                        if (body.Status == "Running") {
+                            Start.innerHTML = "<h1>Scrapper is already running...</h1>"
+                        } else {
+                            Start.innerHTML = link
+
+                        }
+                    }).catch((err) => {
+                        console.trace(err);
+                    });
+                } else {
+                    var link = '<a href="/AmazonScrapper?isASIN=false">Submit</a>'
+                    const Start = document.getElementById("Start");
+                    var opts = {
+                        method: 'GET',
+                        headers: {}
+                    };
+                    fetch('/Resp', opts).then(function (response) {
+                        return response.json();
+                    }).then(function (body) {
+                        if (body.Status == "Running") {
+                            Start.innerHTML = "<h1>Scrapper is already running...</h1>"
+                        } else {
+                            Start.innerHTML = link
+
+                        }
+                    }).catch((err) => {
+                        console.trace(err);
+                    });
+                }
+            }
+        </script>
+</body>
+
+</html>

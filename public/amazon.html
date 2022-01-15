@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Scrapper</title>
+</head>
+
+<body>
+    <p style="color: red; font-weight: bold; font-size: medium; letter-spacing: 2px;">NOTE: PLEASE DON'T CLOSE THIS
+        PAGE, ELSE YOU WILL NOT
+        BE ABLE TO CHECK THE STATUS OF THE
+        SCRAPPER AND EXPORT THE
+        FAILED ASINS/UPCS FILE.</p> <a href="http://127.0.0.1:3001/">RUN AGAIN</a>
+    <br>
+    <h1>Scrapper is Started, Please find the details below:</h1>
+    <br>
+    <h2 id="success"></h2>
+    <h2 id="fail"></h2>
+    <br>
+    <h2 id="Fail_Heading"></h2>
+    <span id="_fail"></span>
+    <span id="_success"></span>
+    <!-- <br> -->
+    <!-- <a href="/amazon-data-export">EXPORT DATA</a> -->
+    <br>
+    <br>
+    <hr>
+    <p>Note: For Failed ASINs/UPCs, First Download the file then copy the ASINs into an XLSX file and then Repeate the
+        Scrapper running Process</p>
+    <script>
+        const Success = document.getElementById("success");
+        const Fail = document.getElementById("fail");
+        var Completed = false;
+        const UpdateAmazonResponse = () => {
+            try {
+                var opts = {
+                    method: 'GET',
+                    headers: {}
+                };
+                fetch('/Resp', opts).then(function (response) {
+                    return response.json();
+                }).then(function (body) {
+                    const fail = body.Fail;
+                    const success = body.Success;
+                    const total = body.Total;
+                    Success.textContent = `Success: ${success}/${total}`;
+                    Fail.textContent = `Fail: ${fail}`;
+                    if (body.Status == "Idle") {
+                        Completed = true;
+                        Fail_List = body.Fail_List;
+                    };
+                }).catch((err) => {
+                    console.trace(err);
+                });
+            } catch (err) {
+                console.trace(err);
+            }
+        };
+        function Main() {
+            if (Completed == true) {
+                const ASIN = document.getElementById("ASIN");
+                const _fail = document.getElementById("_fail");
+                const Fail_Heading = document.getElementById("Fail_Heading");
+                if (Fail_List.length > 0) {
+                    Fail_Heading.innerHTML = "Scrapper is Finished, Please Find the Failed ASINs/UPCs List Below:";
+                    _fail.innerHTML = '<a href="/amazon-usa-file-download" target="_blank">Download</a> the Failed ASINs file.&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Please Export the Successfully Scraped Data file from Here: <a href="/amazon-data-export">Download</a>';
+                    var opts = {
+                        method: 'GET',
+                        headers: {}
+                    };
+                    fetch('/Reset-Scrapper', opts).then(function (response) {
+                        return response.json();
+                    }).then(function (body) {
+                        console.log(body.Success);
+                    }).catch((err) => {
+                        console.trace(err);
+                    });
+                } else {
+                    Fail_Heading.innerHTML = 'Scrapper is Finished Successfuly, Please Export the Output file from below:';
+                    _fail.innerHTML = '<a href="/amazon-data-export">Download</a>'
+                    var opts = {
+                        method: 'GET',
+                        headers: {}
+                    };
+                    fetch('/Reset-Scrapper', opts).then(function (response) {
+                        return response.json();
+                    }).then(function (body) {
+                        console.log(body.Success);
+                    }).catch((err) => {
+                        console.trace(err);
+                    });
+                };
+                clearInterval(ID);
+            } else {
+                UpdateAmazonResponse();
+            };
+        };
+        var ID = setInterval(Main, 1000);
+    </script>
+</body>
+
+</html>

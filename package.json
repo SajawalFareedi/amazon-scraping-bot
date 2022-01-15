@@ -1,0 +1,53 @@
+{
+  "name": "amazon-scraper",
+  "version": "1.7.9",
+  "description": "A Scrapper for Scraping data from Amazon and calculating Breakeven and other stuff.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": {
+    "name": "Sajawal Fareedi",
+    "email": "sajawalfareedi448@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "amazon-mws": "0.0.27",
+    "axios": "^0.21.1",
+    "axios-https-proxy-fix": "^0.17.1",
+    "axios-parallel": "^1.1.2",
+    "axios-retry": "^3.2.4",
+    "bcrypt": "^5.0.1",
+    "cheerio": "^1.0.0-rc.9",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^9.0.2",
+    "ejs": "^3.1.6",
+    "exceljs": "^4.2.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "googleapis": "^39.2.0",
+    "got": "^11.8.2",
+    "https-proxy-agent": "^5.0.0",
+    "json2csv": "^5.0.6",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.2",
+    "node-fetch": "^2.6.1",
+    "node-fetch-cookies": "^2.0.2",
+    "p-queue": "^6.6.2",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "pm2": "^5.1.0",
+    "proxy-chain": "^1.0.2",
+    "puppeteer": "^9.1.1",
+    "puppeteer-extra": "^3.1.18",
+    "puppeteer-extra-plugin-stealth": "^2.7.8",
+    "puppeteer-extra-plugin-user-data-dir": "^2.3.1",
+    "sequelize": "^6.12.0-alpha.1",
+    "user-agents": "^1.0.657",
+    "uuid": "^8.3.2",
+    "xlsx": "^0.17.0"
+  }
+}
