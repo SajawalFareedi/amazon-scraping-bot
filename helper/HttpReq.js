@@ -9,8 +9,7 @@ const AxiosGet = async (Asin, Url, Xhr = false) => {
       let Res;
       const Domain = Url.split("/")[2];
       let RejectCA = new https.Agent({ rejectUnauthorized: false });
-      const ProxyAPI =
-        "http://api.scraperapi.com/?api_key=b73b78d2b601e0f12e024f96fbcbb0c1";
+      const ProxyAPI = "<YOUR_PROXY>";
       const proxy = await Proxy_Chain.anonymizeProxy(ProxyAPI);
       let host = proxy.split(":")[1].replace("//", "");
       let port = Number(proxy.split(":")[2]);
